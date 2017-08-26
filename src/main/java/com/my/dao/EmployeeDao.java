@@ -18,4 +18,7 @@ public interface EmployeeDao {
     //插入员工，通过批量插入
     void insertEmployee(Employee employee);
 
+    //保存员工
+    void saveEmp(Employee employee);
+
 }

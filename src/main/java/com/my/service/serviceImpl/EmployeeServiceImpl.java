@@ -30,4 +30,7 @@ public class EmployeeServiceImpl implements EmployeeService{
      public void insertEmployee(Employee employee){
         employeeDao.insertEmployee(employee);
 }
+
+    //保存员工
+    public void saveEmp(Employee employee){employeeDao.saveEmp(employee);}
 }

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,18 +34,17 @@ public class EmployeeController {
     @Autowired
     @Qualifier("employeeService")
     private EmployeeService employeeService;
-    @RequestMapping("/login")
-    public String show(@RequestParam("bianhao") String bianhao, HttpSession session){
-        System.out.println(bianhao);
-        System.out.println(Integer.parseInt(bianhao));
-        Employee employee = employeeService.findAll(Integer.parseInt(bianhao));
-        System.out.println(employee.getName());
-        session.setAttribute("employee",employee.getName());
-       return "success";
+
+    //员工保存
+    @RequestMapping(value = "/emp",method = RequestMethod.POST)
+    @ResponseBody
+    public Msg saveEmps(Employee employee){
+        employeeService.saveEmp(employee);
+        return Msg.success();
     }
 
-    //通过json方式
-    //ResponseBody要返回json数据需要导入jackson包
+   /*====================================== 通过json方式==================================================*/
+ /*   ResponseBody要返回json数据需要导入jackson包   查询所有员工信息包装在Msg中*/
     @RequestMapping("/emps")
     @ResponseBody
     public Msg getEmpsWithJson(@RequestParam(value="pn",defaultValue = "1") Integer pn){
@@ -58,6 +58,18 @@ public class EmployeeController {
         //封装了详细的页面信息，包括查询出来的数据
         PageInfo page = new PageInfo(list,5);//5表示要连续显示的页数
         return Msg.success().add("pageInfo",page);
+    }
+
+
+    /*=============================================不用ajax===========================================*/
+    @RequestMapping("/login")
+    public String show(@RequestParam("bianhao") String bianhao, HttpSession session){
+        System.out.println(bianhao);
+        System.out.println(Integer.parseInt(bianhao));
+        Employee employee = employeeService.findAll(Integer.parseInt(bianhao));
+        System.out.println(employee.getName());
+        session.setAttribute("employee",employee.getName());
+        return "success";
     }
     /**
      * 查询员工数据

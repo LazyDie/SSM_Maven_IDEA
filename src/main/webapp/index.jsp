@@ -88,7 +88,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" class="btn btn-primary" id="employee_save_bt">保存</button>
             </div>
         </div>
     </div>
@@ -265,6 +265,8 @@
     });
     //查出所有部门信息
     function getDepts(){
+        //清空
+        $("#dept_add_select").empty();
         $.ajax({
            url:"${APP_PATH}/depts",
             type:"GET",
@@ -278,7 +280,26 @@
             }
         });
     }
+    //保存员工数据
+    $("#employee_save_bt").click(function () {
+        //1.模态框中的数据
+        //2.发送ajax请求
 
+      // alert($("#myModal form").serialize());
+        $.ajax({
+         url:"${APP_PATH}/emp",
+         type:"POST",
+         data:$("#myModal form").serialize(),
+         success:function (result) {
+             alert(result.msg);
+             //员工保存成功
+             //1.关闭模态框
+             $("#myModal").modal('hide');
+             //2.来到最后一页，显示数据
+             to_page(999);
+         }
+         });
+    });
 
 </script>
 </body>

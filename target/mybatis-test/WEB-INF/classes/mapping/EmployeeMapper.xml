@@ -19,12 +19,13 @@
     <select id="findAll" parameterType="int" resultType="com.my.domain.Employee">
         select name,gender from tbl_emp where emp_id=#{id}
     </select>
-
     <select id="selectAllEmployee" resultMap="emloyeeResultMap">
         select * from tbl_emp
     </select>
-    
     <insert id="insertEmployee" parameterType="com.my.domain.Employee">
         insert into tbl_emp(name,gender,email,dept_id) VALUES (#{name},#{gender},#{email},#{dept_id})
+    </insert>
+    <insert id="saveEmp" parameterType="com.my.domain.Employee">
+        INSERT  INTO  tbl_emp(name,gender,email,dept_id) VALUES(#{name},#{gender},#{email},#{dept_id})
     </insert>
 </mapper>

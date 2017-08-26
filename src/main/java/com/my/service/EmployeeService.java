@@ -14,4 +14,6 @@ public interface EmployeeService {
     public List<Employee> getAll();
     //批量插入员工数据
     void insertEmployee(Employee employee);
+
+    void saveEmp(Employee employee);
 }

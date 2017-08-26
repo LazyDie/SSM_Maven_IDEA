@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.my.dao.EmployeeDao">
+    <resultMap id="emloyeeResultMap" type="com.my.domain.Employee">
+        <id column="emp_id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="email" property="email"/>
+        <association property="dept" column="dept_id" javaType="com.my.domain.Dept"
+        select="findDept">
+            <id property="id" column="dept_id"></id>
+            <result property="name" column="dept_name"/>
+        </association>
+    </resultMap>
+    <select id="findDept" parameterType="int" resultType="com.my.domain.Dept">
+        select dept_id as id ,dept_name as name from tbl_dept where dept_id=#{id}
+    </select>
+    <select id="findAll" parameterType="int" resultType="com.my.domain.Employee">
+        select name,gender from tbl_emp where emp_id=#{id}
+    </select>
+
+    <select id="selectAllEmployee" resultMap="emloyeeResultMap">
+        select * from tbl_emp
+    </select>
+    
+    <insert id="insertEmployee" parameterType="com.my.domain.Employee">
+        insert into tbl_emp(name,gender,email,dept_id) VALUES (#{name},#{gender},#{email},#{dept_id})
+    </insert>
+</mapper>

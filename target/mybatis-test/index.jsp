@@ -12,7 +12,7 @@
     <title>员工列表</title>
     <%-- 拿到当前项目路径 以/开始不以/结束--%>
     <%
-        pageContext.setAttribute("APP_PATH",request.getContextPath());
+        pageContext.setAttribute("APP_PATH", request.getContextPath());
     %>
     <%--web路径  不以/开始的相对路径，找资源，以当前资源的路径为基准，经常容易出问题
             以/开始的相对路径，找资源，以服务器的根路径为标准(http://localhost:3306)
@@ -24,19 +24,29 @@
     <script type="text/javascript" src="jss/jquery.js"></script>--%>
     <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
-    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 
- <%--   <script type="text/javascript" src="jss/xianshi.js"></script>--%>
+    <%--   <script type="text/javascript" src="jss/xianshi.js"></script>--%>
 
 </head>
 <body>
 <!-- 员工添加的模态框 -->
+    <form action="upload" enctype="multipart/form-data" method="post">
+        <input type="file" name ="file">
+        <input type="submit" value = "上传">
+
+    </form>
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -52,33 +62,35 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">员工姓名</label>
                         <div class="col-sm-10">
-                            <input type="text" name="name" class="form-control" id="empName_input" placeholder="empName">
+                            <input type="text" name="name" class="form-control" id="empName_input"
+                                   placeholder="empName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="text" name="email" class="form-control" id="email_input" placeholder="email@qq.com">
+                            <input type="text" name="email" class="form-control" id="email_input"
+                                   placeholder="email@qq.com">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">性别</label>
-                            <div class="col-sm-10">
-                                <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender1_input" value="M" checked="checked"> 男
-                                </label>
-                                <label class="radio-inline">
-                                    <input type="radio" name="gender" id="gender2_input" value="G"> 女
-                                </label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender1_input" value="M" checked="checked"> 男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender2_input" value="G"> 女
+                            </label>
 
-                            </div>
+                        </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">部门名</label>
                         <div class="col-sm-4">
-                          <%--  部门提交部门id--%>
+                            <%--  部门提交部门id--%>
                             <select class="form-control" name="dept_id" id="dept_add_select">
 
                             </select>
@@ -113,14 +125,14 @@
         <div class="col-md-12">
             <table class="table table-hover" id="emps_table">
                 <thead><%--表头--%>
-                    <tr>
-                        <th>员工ID</th>
-                        <th>员工姓名</th>
-                        <th>员工性别</th>
-                        <th>员工邮箱</th>
-                        <th>所在部门</th>
-                        <th>#操作</th>
-                    </tr>
+                <tr>
+                    <th>员工ID</th>
+                    <th>员工姓名</th>
+                    <th>员工性别</th>
+                    <th>员工邮箱</th>
+                    <th>所在部门</th>
+                    <th>#操作</th>
+                </tr>
                 </thead>
                 <tbody><%--表格体--%>
 
@@ -144,16 +156,16 @@
 </div>
 <script type="text/javascript">
     //页面加载完成后，直接去发送一个ajax请求，要到分页数据
-    $(function(){
-       to_page(1);
+    $(function () {
+        to_page(1);
     });
     //根据页码显示页面
-    function to_page(pn){
+    function to_page(pn) {
         $.ajax({
-            url:"${APP_PATH}/emps",
-            data:"pn="+pn,
-            type:"GET",
-            success:function (result) {
+            url: "${APP_PATH}/emps",
+            data: "pn=" + pn,
+            type: "GET",
+            success: function (result) {
                 console.log(result);
                 //解析并显示员工数据
                 //解析并显示分页数据
@@ -170,25 +182,25 @@
         //清空table
         $("#emps_table tbody").empty();
         var emps = result.extend.pageInfo.list;
-        $.each(emps,function(index,item){
+        $.each(emps, function (index, item) {
             var empIdTd = $("<td></td>").append(item.id);
             var empNameTd = $("<td></td>").append(item.name);
-            var empGenderTd =$("<td></td>").append(item.gender=="M"?"男":"女");
-            var empEmailTd=$("<td></td>").append(item.email);
-            var detpNameTd=$("<td></td>").append(item.dept.name);
+            var empGenderTd = $("<td></td>").append(item.gender == "M" ? "男" : "女");
+            var empEmailTd = $("<td></td>").append(item.email);
+            var detpNameTd = $("<td></td>").append(item.dept.name);
             /*<button class="btn btn-primary btn-xs">
-                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                编辑
-                </button>*/
-            var editBtn=$("<button></button>").addClass("btn btn-primary btn-xs")
+             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+             编辑
+             </button>*/
+            var editBtn = $("<button></button>").addClass("btn btn-primary btn-xs")
                 .append($("<span></span>").addClass("glyphicon glyphicon-pencil")).append("编辑");
             /*button class="btn btn-danger btn-xs">
-                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                删除
-                </button>*/
-            var deleteBtn=$("<button></button>").addClass("btn btn-danger btn-xs")
+             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+             删除
+             </button>*/
+            var deleteBtn = $("<button></button>").addClass("btn btn-danger btn-xs")
                 .append($("<span></span>").addClass("glyphicon glyphicon-trash")).append("删除");
-            var btnTd =$("<td></td>").append(editBtn).append(" ").append(deleteBtn);
+            var btnTd = $("<td></td>").append(editBtn).append(" ").append(deleteBtn);
             /*append方法执行完成之后还是原来的元素*/
             $("<tr></tr>").append(empIdTd)
                 .append(empNameTd)
@@ -200,36 +212,36 @@
         });
     }
     //解析显示分页信息
-    function build_page_info(result){
+    function build_page_info(result) {
         $("#page_info").empty();
-        $("#page_info").append(" 当前页码"+result.extend.pageInfo.pageNum+",总共"+result.extend.pageInfo.pages+
-            "页,总共"+result.extend.pageInfo.total+"条记录")
+        $("#page_info").append(" 当前页码" + result.extend.pageInfo.pageNum + ",总共" + result.extend.pageInfo.pages +
+            "页,总共" + result.extend.pageInfo.total + "条记录")
     }
     //解析显示分页条
-    function  build_page_nav(result) {
+    function build_page_nav(result) {
         $("#page_nav").empty();
-        var ul=$("<ul></ul>").addClass("pagination");
-        var firstPageLi=$("<li></li>").append($("<a></a>").append("首页").attr("href","#"));
-        var prePageLi=$("<li></li>").append($("<a></a>").append("&laquo;").attr("href","#"));
-        if(result.extend.pageInfo.hasPreviousPage==false){
+        var ul = $("<ul></ul>").addClass("pagination");
+        var firstPageLi = $("<li></li>").append($("<a></a>").append("首页").attr("href", "#"));
+        var prePageLi = $("<li></li>").append($("<a></a>").append("&laquo;").attr("href", "#"));
+        if (result.extend.pageInfo.hasPreviousPage == false) {
             prePageLi.addClass("disabled");
             firstPageLi.addClass("disabled");
-        }else{
+        } else {
             prePageLi.click(function () {
-                to_page(result.extend.pageInfo.pageNum-1);
+                to_page(result.extend.pageInfo.pageNum - 1);
             });
             firstPageLi.click(function () {
                 to_page(1);
             });
         }
-        var nextPageLi=$("<li></li>").append($("<a></a>").append("&raquo;").attr("href","#"));
-        var lastPageLi=$("<li></li>").append($("<a></a>").append("末页").attr("href","#"));
-        if(result.extend.pageInfo.hasNextPage==false){
+        var nextPageLi = $("<li></li>").append($("<a></a>").append("&raquo;").attr("href", "#"));
+        var lastPageLi = $("<li></li>").append($("<a></a>").append("末页").attr("href", "#"));
+        if (result.extend.pageInfo.hasNextPage == false) {
             nextPageLi.addClass("disabled");
             lastPageLi.addClass("disabled");
-        }else{
+        } else {
             nextPageLi.click(function () {
-                to_page(result.extend.pageInfo.pageNum+1);
+                to_page(result.extend.pageInfo.pageNum + 1);
             });
             lastPageLi.click(function () {
                 to_page(result.extend.pageInfo.pages);
@@ -237,20 +249,20 @@
         }
         //添加首页和前一页
         ul.append(firstPageLi).append(prePageLi);
-        $.each(result.extend.pageInfo.navigatepageNums,function(index,item){
-            var numLi=$("<li></li>").append($("<a></a>").append(item).attr("href","#"));
-            if(result.extend.pageInfo.pageNum==item){
+        $.each(result.extend.pageInfo.navigatepageNums, function (index, item) {
+            var numLi = $("<li></li>").append($("<a></a>").append(item).attr("href", "#"));
+            if (result.extend.pageInfo.pageNum == item) {
                 numLi.addClass("active");
             }
-            numLi.click(function(){
+            numLi.click(function () {
                 to_page(item);
             });
-           //添加页码号
+            //添加页码号
             ul.append(numLi);
         });
         //添加下一页和末页
         ul.append(nextPageLi).append(lastPageLi);
-        var nav =$("<nav></nav>").append(ul);
+        var nav = $("<nav></nav>").append(ul);
         $("#page_nav").append(nav);
     }
     //点击新增按钮弹出模态框
@@ -260,21 +272,21 @@
         getDepts();
         //弹出模态框
         $("#myModal").modal({
-            backdrop:"static"
+            backdrop: "static"
         });
     });
     //查出所有部门信息
-    function getDepts(){
+    function getDepts() {
         //清空
         $("#dept_add_select").empty();
         $.ajax({
-           url:"${APP_PATH}/depts",
-            type:"GET",
-            success:function (result) {
-               //将部门信息添加到下拉列表
+            url: "${APP_PATH}/depts",
+            type: "GET",
+            success: function (result) {
+                //将部门信息添加到下拉列表
 
-                $.each(result.extend.depts,function(){
-                    var optionEle = $("<option></option>").append(this.name).attr("value",this.id);
+                $.each(result.extend.depts, function () {
+                    var optionEle = $("<option></option>").append(this.name).attr("value", this.id);
                     optionEle.appendTo("#dept_add_select");
                 });
             }
@@ -285,20 +297,20 @@
         //1.模态框中的数据
         //2.发送ajax请求
 
-      // alert($("#myModal form").serialize());
+        // alert($("#myModal form").serialize());
         $.ajax({
-         url:"${APP_PATH}/emp",
-         type:"POST",
-         data:$("#myModal form").serialize(),
-         success:function (result) {
-             alert(result.msg);
-             //员工保存成功
-             //1.关闭模态框
-             $("#myModal").modal('hide');
-             //2.来到最后一页，显示数据
-             to_page(999);
-         }
-         });
+            url: "${APP_PATH}/emp",
+            type: "POST",
+            data: $("#myModal form").serialize(),
+            success: function (result) {
+                alert(result.msg);
+                //员工保存成功
+                //1.关闭模态框
+                $("#myModal").modal('hide');
+                //2.来到最后一页，显示数据
+                to_page(999);
+            }
+        });
     });
 
 </script>

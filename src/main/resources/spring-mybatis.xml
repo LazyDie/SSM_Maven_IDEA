@@ -75,6 +75,11 @@
             好像是configLocation和SpringMvc中的configLocation冲突了
         <property name="configLocation" value="classpath:mybatis-config.xml"/>-->
     </bean>
+    <!--配置文件上传功能-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="10485760"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
 
     <!-- DAO接口所在包名，Spring会自动查找其下的类 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
